@@ -5,7 +5,7 @@ import AppRoutes from './routes'
 export default function App() {
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/THEDIVINEPRODUCTION">
         <AppRoutes />
       </BrowserRouter>
     </HelmetProvider>
