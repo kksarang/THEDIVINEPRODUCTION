@@ -12,10 +12,16 @@ import { sendInquiry } from '../services/email'
 export default function Careers() {
   const [selected, setSelected] = useState(careers[0].id)
   const [sent, setSent] = useState(false)
+  const [error, setError] = useState('')
   const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm()
 
   const onSubmit = async (data) => {
-    await sendInquiry({ ...data, position: selected, type: 'career' })
+    setError('')
+    const result = await sendInquiry({ ...data, position: selected, type: 'career' })
+    if (!result.ok) {
+      setError('Unable to submit right now. Please email hello@thedivineproduction.com.')
+      return
+    }
     setSent(true)
     reset()
   }
@@ -102,6 +108,7 @@ export default function Careers() {
                   <input {...register('phone')} placeholder="Phone" className="input-field" />
                   <input {...register('portfolio')} placeholder="Portfolio / LinkedIn URL" className="input-field" />
                   <textarea {...register('message', { required: true })} rows={5} placeholder="Why Divine?" className="input-field resize-none" />
+                  {error && <p className="text-sm text-red-300">{error}</p>}
                   <Button type="submit" disabled={isSubmitting} className="w-full">
                     {isSubmitting ? 'Sending...' : 'Submit Application'}
                   </Button>

@@ -60,7 +60,7 @@ export default function Services() {
             className="mb-16"
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {eventProcess.map((p, i) => (
+            {eventProcess.map((p) => (
               <div key={p.step} className="relative rounded-[2rem] border border-gold/15 bg-secondary/50 p-8 overflow-hidden">
                 <span className="font-heading text-7xl text-gold/15 absolute -top-2 -right-1">{p.step}</span>
                 <p className="font-btn text-[10px] tracking-[0.3em] uppercase text-gold mb-4">Step {p.step}</p>

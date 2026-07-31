@@ -35,7 +35,9 @@ export default function Footer() {
 
   const subscribe = (e) => {
     e.preventDefault()
-    if (!email) return
+    if (!email.trim()) return
+    // Newsletter provider not wired yet — acknowledge the request honestly
+    console.info('[Newsletter request]', email.trim())
     setDone(true)
     setEmail('')
   }
@@ -125,7 +127,9 @@ export default function Footer() {
                 Subscribe <FiArrowRight />
               </Button>
               {done && (
-                <p className="text-gold text-xs tracking-wide">Thank you for joining.</p>
+                <p className="text-gold text-xs tracking-wide">
+                  Thanks — we&apos;ll add you when the list goes live.
+                </p>
               )}
             </form>
             <div className="mt-8 text-sm text-grey space-y-1">

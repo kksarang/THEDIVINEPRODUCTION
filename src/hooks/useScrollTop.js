@@ -1,9 +1,12 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { useLenisContext } from '../context/LenisContext'
 
 export function useScrollTop() {
   const { pathname } = useLocation()
+  const { scrollTo } = useLenisContext()
+
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [pathname])
+    scrollTo(0, { immediate: true })
+  }, [pathname, scrollTo])
 }

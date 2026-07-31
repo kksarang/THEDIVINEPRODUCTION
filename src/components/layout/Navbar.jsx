@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { FiMenu, FiX, FiChevronDown } from 'react-icons/fi'
 import Button from '../ui/Button'
 import { homeServices } from '../../data/services'
+import { useLenisContext } from '../../context/LenisContext'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -27,17 +28,33 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [mega, setMega] = useState(false)
   const { pathname } = useLocation()
+  const { lenis, stop, start } = useLenisContext()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    const update = (scroll) => setScrolled(scroll > 40)
+
+    if (lenis) {
+      const onScroll = (e) => update(e.scroll)
+      lenis.on('scroll', onScroll)
+      update(lenis.scroll)
+      return () => lenis.off('scroll', onScroll)
+    }
+
+    const onWindowScroll = () => update(window.scrollY)
+    window.addEventListener('scroll', onWindowScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onWindowScroll)
+  }, [lenis])
 
   useEffect(() => {
     setOpen(false)
     setMega(false)
   }, [pathname])
+
+  useEffect(() => {
+    if (open) stop()
+    else start()
+    return () => start()
+  }, [open, stop, start])
 
   return (
     <header
@@ -52,9 +69,9 @@ export default function Navbar() {
           <p className="font-btn text-[9px] tracking-[0.35em] uppercase text-gold mb-0.5">
             Est. 2015
           </p>
-          <h1 className="font-heading text-xl md:text-2xl tracking-wide text-white group-hover:text-gold-light transition-colors">
+          <span className="font-heading text-xl md:text-2xl tracking-wide text-white group-hover:text-gold-light transition-colors block">
             THE DIVINE <span className="text-gold">PRODUCTION</span>
-          </h1>
+          </span>
         </Link>
 
         <nav className="hidden xl:flex items-center gap-1">
@@ -135,7 +152,9 @@ export default function Navbar() {
           type="button"
           className="xl:hidden text-white z-10"
           onClick={() => setOpen((v) => !v)}
-          aria-label="Menu"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          aria-controls="mobile-nav"
         >
           {open ? <FiX size={26} /> : <FiMenu size={26} />}
         </button>
@@ -144,6 +163,7 @@ export default function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div
+            id="mobile-nav"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}

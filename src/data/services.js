@@ -150,7 +150,7 @@ export const services = [
     title: 'College Events',
     short: 'Youth energy meets professional production standards.',
     description:
-      'Fests, fests, and fests — with stages, sponsorship zones, and campus logistics handled like a major tour.',
+      'Campus festivals with stages, sponsorship zones, and logistics handled like a major tour.',
     image: images.school,
     icon: 'FiCpu',
     features: ['Fest programming', 'Sponsor zones', 'Security plans', 'Artist stages'],

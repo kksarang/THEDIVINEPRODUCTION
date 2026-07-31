@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { FiArrowUpRight, FiPlay } from 'react-icons/fi'
 import SEO from '../components/ui/SEO'
@@ -10,11 +10,15 @@ import { images } from '../data/images'
 
 export default function Events() {
   const [params] = useSearchParams()
-  const initial = params.get('category') || 'All'
+  const categoryParam = params.get('category') || 'All'
   const [filter, setFilter] = useState(
-    categories.includes(initial) ? initial : 'All',
+    categories.includes(categoryParam) ? categoryParam : 'All',
   )
   const [view, setView] = useState('gallery')
+
+  useEffect(() => {
+    setFilter(categories.includes(categoryParam) ? categoryParam : 'All')
+  }, [categoryParam])
 
   const filtered = useMemo(
     () => (filter === 'All' ? events : events.filter((e) => e.category === filter)),

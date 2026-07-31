@@ -45,5 +45,4 @@ export const images = {
 }
 
 export const videoPoster = images.stage
-export const showcaseVideo =
-  'https://cdn.coverr.co/videos/coverr-people-dancing-at-a-concert-5726/1080p.mp4'
+export const showcaseVideo = `${import.meta.env.BASE_URL}videos/showreel.mp4`

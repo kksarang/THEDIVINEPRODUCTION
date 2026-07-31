@@ -1,5 +1,10 @@
 import { images } from './images'
 
+const social = {
+  linkedin: 'https://linkedin.com',
+  instagram: 'https://instagram.com',
+}
+
 export const team = [
   {
     id: 'founder',
@@ -7,7 +12,7 @@ export const team = [
     role: 'Founder & Creative Principal',
     bio: 'Aarav built THE DIVINE PRODUCTION on a belief that events are living cinema — every cue, every silence, every entrance is part of the story.',
     image: images.portraits[0],
-    social: { linkedin: '#', instagram: '#' },
+    social,
   },
   {
     id: 'creative-director',
@@ -15,7 +20,7 @@ export const team = [
     role: 'Creative Director',
     bio: 'Ishita shapes the visual language of every production — from stage architecture to the smallest tablescape detail.',
     image: images.portraits[1],
-    social: { linkedin: '#', instagram: '#' },
+    social,
   },
   {
     id: 'production-manager',
@@ -23,7 +28,7 @@ export const team = [
     role: 'Production Manager',
     bio: 'Kabir turns ambitious concepts into executable plans, leading crews with calm precision under pressure.',
     image: images.portraits[2],
-    social: { linkedin: '#', instagram: '#' },
+    social,
   },
   {
     id: 'event-manager',
@@ -31,7 +36,7 @@ export const team = [
     role: 'Event Manager',
     bio: 'Sana owns guest journeys and client calm — the invisible hospitality layer that makes luxury feel effortless.',
     image: images.portraits[3],
-    social: { linkedin: '#', instagram: '#' },
+    social,
   },
   {
     id: 'photography-lead',
@@ -39,7 +44,7 @@ export const team = [
     role: 'Photography Lead',
     bio: 'Dev directs editorial coverage so every night becomes a lasting visual archive for brand and family alike.',
     image: images.portraits[4],
-    social: { linkedin: '#', instagram: '#' },
+    social,
   },
   {
     id: 'stage-lead',
@@ -47,7 +52,7 @@ export const team = [
     role: 'Stage & Design Lead',
     bio: 'Leela engineers stages that photograph like film sets and perform like touring productions.',
     image: images.portraits[5],
-    social: { linkedin: '#', instagram: '#' },
+    social,
   },
   {
     id: 'operations',
@@ -55,7 +60,7 @@ export const team = [
     role: 'Head of Operations',
     bio: 'Nikhil orchestrates vendors, timelines, and contingencies so show day feels inevitable — never improvised.',
     image: images.portraits[0],
-    social: { linkedin: '#', instagram: '#' },
+    social,
   },
   {
     id: 'av-lead',
@@ -63,6 +68,6 @@ export const team = [
     role: 'AV & Lighting Lead',
     bio: 'Tara calibrates sound and light as emotional instruments — clarity for speech, cinema for spectacle.',
     image: images.portraits[1],
-    social: { linkedin: '#', instagram: '#' },
+    social,
   },
 ]

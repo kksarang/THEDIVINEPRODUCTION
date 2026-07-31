@@ -83,7 +83,7 @@ export default function ServicesGrid() {
                     </div>
                     <h3 className="font-heading text-3xl text-white mb-2">{s.title}</h3>
                     <p className="text-grey text-sm line-clamp-2 mb-4">{s.short}</p>
-                    <span className="font-btn text-[10px] tracking-[0.25em] uppercase text-gold inline-flex items-center gap-2 opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                    <span className="font-btn text-[10px] tracking-[0.25em] uppercase text-gold inline-flex items-center gap-2 md:opacity-0 md:translate-y-3 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-500">
                       Learn More <FiArrowUpRight />
                     </span>
                   </div>

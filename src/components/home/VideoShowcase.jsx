@@ -1,11 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiPlay, FiX } from 'react-icons/fi'
 import SectionHeading from '../ui/SectionHeading'
 import { showcaseVideo, videoPoster } from '../../data/images'
+import { useLenisContext } from '../../context/LenisContext'
 
 export default function VideoShowcase() {
   const [open, setOpen] = useState(false)
+  const { stop, start } = useLenisContext()
+
+  useEffect(() => {
+    if (!open) return undefined
+    stop()
+    const onKey = (e) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      start()
+    }
+  }, [open, stop, start])
 
   return (
     <section className="section-padding relative overflow-hidden">
@@ -23,13 +38,13 @@ export default function VideoShowcase() {
         />
 
         <div className="relative aspect-video rounded-[2rem] overflow-hidden group">
-          <img src={videoPoster} alt="Showcase" className="img-cover" />
+          <img src={videoPoster} alt="Showreel preview" className="img-cover" />
           <div className="absolute inset-0 bg-bg/45 group-hover:bg-bg/35 transition-colors" />
           <button
             type="button"
             onClick={() => setOpen(true)}
             className="absolute inset-0 flex items-center justify-center"
-            aria-label="Play video"
+            aria-label="Play showreel"
           >
             <span className="w-20 h-20 md:w-24 md:h-24 rounded-full border border-gold/50 bg-bg/50 backdrop-blur-md flex items-center justify-center text-gold animate-pulse-gold group-hover:scale-110 transition-transform">
               <FiPlay size={28} className="ml-1" />
@@ -53,6 +68,10 @@ export default function VideoShowcase() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[120] bg-black/95 flex items-center justify-center p-4"
+            onClick={() => setOpen(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Showreel player"
           >
             <button
               type="button"
@@ -62,7 +81,13 @@ export default function VideoShowcase() {
             >
               <FiX size={28} />
             </button>
-            <video controls autoPlay className="w-full max-w-5xl rounded-2xl">
+            <video
+              controls
+              autoPlay
+              playsInline
+              className="w-full max-w-5xl rounded-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
               <source src={showcaseVideo} type="video/mp4" />
             </video>
           </motion.div>

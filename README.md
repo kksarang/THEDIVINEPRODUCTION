@@ -9,11 +9,10 @@ Premium event management website — **Creating Experiences, Not Just Events**.
 - React + Vite
 - Tailwind CSS v4
 - React Router
-- Framer Motion + GSAP
-- Lenis smooth scroll
-- Swiper, React CountUp, React Hook Form
+- Framer Motion + Lenis smooth scroll
+- Swiper, React Hook Form
 - React Helmet Async
-- EmailJS (dummy integration)
+- EmailJS (set `VITE_EMAILJS_*` env vars for live send)
 
 ## Getting started
 
@@ -49,10 +48,12 @@ src/
 
 ## EmailJS
 
-Replace placeholders in `src/services/email.js` before going live:
+Create a `.env` file (or host env vars) with:
 
-- `YOUR_SERVICE_ID`
-- `YOUR_TEMPLATE_ID`
-- `YOUR_PUBLIC_KEY`
+```bash
+VITE_EMAILJS_SERVICE_ID=...
+VITE_EMAILJS_TEMPLATE_ID=...
+VITE_EMAILJS_PUBLIC_KEY=...
+```
 
-Until then, form submissions simulate success and log to the console.
+Until configured, form submissions run in demo mode and log to the console.

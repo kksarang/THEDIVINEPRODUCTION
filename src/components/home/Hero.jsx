@@ -29,19 +29,27 @@ function Particles() {
 export default function Hero() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '22%'])
+  // Keep hero copy readable while scrolling — only soft fade, never fully hide the page
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.35])
 
   return (
     <section ref={ref} className="relative min-h-screen overflow-hidden flex items-center">
       <motion.div style={{ y }} className="absolute inset-0">
+        <img
+          src={videoPoster}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover scale-105"
+        />
         <video
           autoPlay
           muted
           loop
           playsInline
           poster={videoPoster}
-          className="w-full h-full object-cover scale-105"
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover scale-105"
         >
           <source src={showcaseVideo} type="video/mp4" />
         </video>

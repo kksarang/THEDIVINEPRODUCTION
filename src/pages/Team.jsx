@@ -56,12 +56,24 @@ export default function Team() {
                       className="img-cover transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-bg/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="absolute bottom-5 left-5 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <a href={m.social.linkedin} className="w-9 h-9 rounded-full bg-gold text-primary flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-t from-bg/80 via-transparent to-transparent md:opacity-0 md:group-hover:opacity-100 transition-opacity opacity-100" />
+                    <div className="absolute bottom-5 left-5 flex gap-2 md:opacity-0 md:group-hover:opacity-100 transition-opacity opacity-100">
+                      <a
+                        href={m.social.linkedin}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`${m.name} on LinkedIn`}
+                        className="w-9 h-9 rounded-full bg-gold text-primary flex items-center justify-center"
+                      >
                         <FaLinkedinIn size={14} />
                       </a>
-                      <a href={m.social.instagram} className="w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center">
+                      <a
+                        href={m.social.instagram}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`${m.name} on Instagram`}
+                        className="w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center"
+                      >
                         <FaInstagram size={14} />
                       </a>
                     </div>

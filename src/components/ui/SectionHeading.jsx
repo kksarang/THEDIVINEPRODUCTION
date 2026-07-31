@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { cn } from '../../utils/cn'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 export default function SectionHeading({
   eyebrow,
@@ -9,12 +10,17 @@ export default function SectionHeading({
   light = false,
   className,
 }) {
+  const reduced = useReducedMotion()
+  const Wrapper = reduced ? 'div' : motion.div
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+    <Wrapper
+      {...(!reduced && {
+        initial: { opacity: 0, y: 28 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, amount: 0.2, margin: '0px 0px -40px 0px' },
+        transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+      })}
       className={cn(
         'max-w-3xl',
         align === 'center' && 'mx-auto text-center',
@@ -40,6 +46,6 @@ export default function SectionHeading({
           {subtitle}
         </p>
       )}
-    </motion.div>
+    </Wrapper>
   )
 }

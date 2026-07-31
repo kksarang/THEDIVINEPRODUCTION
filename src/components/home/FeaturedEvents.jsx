@@ -57,7 +57,7 @@ export default function FeaturedEvents() {
                   </p>
                   <h3 className="font-heading text-2xl md:text-3xl text-white flex items-center gap-2">
                     {event.title}
-                    <FiArrowUpRight className="opacity-0 group-hover:opacity-100 transition-opacity text-gold" />
+                    <FiArrowUpRight className="md:opacity-0 md:group-hover:opacity-100 transition-opacity text-gold opacity-100" />
                   </h3>
                 </div>
               </Link>

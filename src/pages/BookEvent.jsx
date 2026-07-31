@@ -13,6 +13,7 @@ const steps = ['Personal', 'Event', 'Details', 'Review']
 export default function BookEvent() {
   const [step, setStep] = useState(0)
   const [done, setDone] = useState(false)
+  const [error, setError] = useState('')
   const { register, handleSubmit, watch, trigger, formState: { isSubmitting } } = useForm({
     defaultValues: {
       name: '',
@@ -40,7 +41,12 @@ export default function BookEvent() {
   }
 
   const onSubmit = async (data) => {
-    await sendInquiry({ ...data, type: 'book-event' })
+    setError('')
+    const result = await sendInquiry({ ...data, type: 'book-event' })
+    if (!result.ok) {
+      setError('Unable to submit right now. Please email hello@thedivineproduction.com or try again.')
+      return
+    }
     setDone(true)
   }
 
@@ -173,9 +179,12 @@ export default function BookEvent() {
                       Continue <FiArrowRight />
                     </Button>
                   ) : (
-                    <Button type="submit" disabled={isSubmitting}>
-                      {isSubmitting ? 'Submitting...' : 'Submit Inquiry'}
-                    </Button>
+                    <div className="flex flex-col items-end gap-3">
+                      {error && <p className="text-sm text-red-300">{error}</p>}
+                      <Button type="submit" disabled={isSubmitting}>
+                        {isSubmitting ? 'Submitting...' : 'Submit Inquiry'}
+                      </Button>
+                    </div>
                   )}
                 </div>
               </form>

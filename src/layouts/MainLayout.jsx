@@ -7,11 +7,10 @@ import FloatingWhatsApp from '../components/shared/FloatingWhatsApp'
 import BackToTop from '../components/shared/BackToTop'
 import PageLoader from '../components/shared/PageLoader'
 import PageTransition from '../components/shared/PageTransition'
-import { useLenis } from '../hooks/useLenis'
+import RouteErrorBoundary from '../components/shared/RouteErrorBoundary'
 import { useScrollTop } from '../hooks/useScrollTop'
 
 export default function MainLayout() {
-  useLenis()
   useScrollTop()
   const { pathname } = useLocation()
 
@@ -20,10 +19,12 @@ export default function MainLayout() {
       <PageLoader />
       <CursorGlow />
       <Navbar />
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" initial={false}>
         <PageTransition key={pathname}>
           <main className="min-h-screen">
-            <Outlet />
+            <RouteErrorBoundary key={pathname}>
+              <Outlet />
+            </RouteErrorBoundary>
           </main>
         </PageTransition>
       </AnimatePresence>

@@ -1,8 +1,28 @@
+import { useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+import { useLenisContext } from '../../context/LenisContext'
 
 export default function Lightbox({ images, index, onClose, onPrev, onNext }) {
+  const { stop, start } = useLenisContext()
+
+  useEffect(() => {
+    if (index == null) return undefined
+    stop()
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose()
+      if (e.key === 'ArrowLeft') onPrev()
+      if (e.key === 'ArrowRight') onNext()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      start()
+    }
+  }, [index, onClose, onPrev, onNext, stop, start])
+
   if (index == null) return null
+
   return (
     <AnimatePresence>
       <motion.div
@@ -11,6 +31,9 @@ export default function Lightbox({ images, index, onClose, onPrev, onNext }) {
         exit={{ opacity: 0 }}
         className="fixed inset-0 z-[100] bg-black/92 backdrop-blur-md flex items-center justify-center p-4"
         onClick={onClose}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Image lightbox"
       >
         <button
           type="button"

@@ -13,10 +13,16 @@ import { sendInquiry } from '../services/email'
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
+  const [error, setError] = useState('')
   const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm()
 
   const onSubmit = async (data) => {
-    await sendInquiry({ ...data, type: 'contact' })
+    setError('')
+    const result = await sendInquiry({ ...data, type: 'contact' })
+    if (!result.ok) {
+      setError('Unable to send right now. Please email hello@thedivineproduction.com or try again.')
+      return
+    }
     setSent(true)
     reset()
   }
@@ -56,10 +62,18 @@ export default function Contact() {
             ))}
 
             <div className="flex gap-3 pt-2">
-              {[FaInstagram, FaFacebookF, FaLinkedinIn, FaWhatsapp].map((Icon, i) => (
+              {[
+                { Icon: FaInstagram, href: 'https://instagram.com', label: 'Instagram' },
+                { Icon: FaFacebookF, href: 'https://facebook.com', label: 'Facebook' },
+                { Icon: FaLinkedinIn, href: 'https://linkedin.com', label: 'LinkedIn' },
+                { Icon: FaWhatsapp, href: 'https://wa.me/919876543210', label: 'WhatsApp' },
+              ].map(({ Icon, href, label }) => (
                 <a
-                  key={i}
-                  href="#"
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
                   className="w-11 h-11 rounded-full border border-gold/25 flex items-center justify-center text-gold hover:bg-gold hover:text-primary transition-all"
                 >
                   <Icon size={16} />
@@ -87,6 +101,7 @@ export default function Contact() {
                     <input {...register('company')} placeholder="Company / Occasion" className="field" />
                   </div>
                   <textarea {...register('message', { required: true })} rows={6} placeholder="Tell us about your event..." className="field resize-none" />
+                  {error && <p className="text-sm text-red-300">{error}</p>}
                   <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
