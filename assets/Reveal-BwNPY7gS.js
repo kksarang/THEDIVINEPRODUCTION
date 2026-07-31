@@ -1,0 +1,1 @@
+import{D as e,t}from"./proxy-BMqtHO4-.js";var n=e();function r({children:e,delay:r=0,y:i=40,className:a,once:o=!0}){return(0,n.jsx)(t.div,{initial:{opacity:0,y:i,filter:`blur(8px)`},whileInView:{opacity:1,y:0,filter:`blur(0px)`},viewport:{once:o,amount:.2},transition:{duration:.9,delay:r,ease:[.22,1,.36,1]},className:a,children:e})}export{r as t};
